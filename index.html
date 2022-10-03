@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,100;1,200&display=swap"
+        rel="stylesheet">
+    <title>Gradient Generator</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2>Gradient Generator</h2>
+        <div id="output-color"></div>
+        <input type="text" id="output-code" readonly>
+        <div class="btn-container">
+            <button id="generate-btn">Generate</button>
+            <button id="copy-btn">Copy</button>
+        </div>
+    </div>
+
+    <script>
+        let generateBtn = document.getElementById("generate-btn");
+        let copyBtn = document.getElementById("copy-btn");
+        let outputColor = document.getElementById("output-color");
+        let outputCode = document.getElementById("output-code");
+        let hexString = "0123456789abcdef";
+
+        let randomColor = () => {
+            let hexCode = "#";
+            for (i = 0; i < 6; i++) {
+                hexCode += hexString[Math.floor(Math.random() * hexString.length)];
+            }
+            return hexCode;
+        }
+
+        let generateGrad = () => {
+            let colorOne = randomColor();
+            let colorTwo = randomColor();
+            let angle = Math.floor(Math.random() * 360);
+            outputColor.style.background = `linear-gradient(${angle}deg, ${colorOne}, ${colorTwo})`;
+            outputCode.value = `background: linear-gradient(${angle}deg, ${colorOne}, ${colorTwo});`;
+        }
+
+        copyBtn.addEventListener("click", () => {
+            outputCode.select();
+            document.execCommand("copy");
+        });
+
+        generateBtn.addEventListener("click", generateGrad);
+        window.onload = generateGrad;
+    </script>
+
+</body>
+
+</html>
